@@ -38,8 +38,3 @@ OR just use docker-compose
 API document will be available at
 
     http://localhost:8000/docs
-
-## Integration test
-
-    pip install -r requirements.txt
-    ./run_test.sh
