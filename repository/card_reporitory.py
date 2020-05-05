@@ -17,8 +17,8 @@ class CardRepository(object):
                 sql = """
                         SELECT {columns}
                         FROM card WHERE id=%s
-                    """.format(columns=CarsRepository.columns)
-                cursor.execute(sql, (crd_id,))
+                    """.format(columns=CardRepository.columns)
+                cursor.execute(sql, (card_id,))
                 result = cursor.fetchone()
                 if result is not None:
                     card_from_db = Card(result[0], result[1], result[2], result[3],
@@ -28,7 +28,6 @@ class CardRepository(object):
         return card_from_db
 
     def create_card(self, card):
-
         new_id = str(uuid.uuid4())
         card.id = new_id
         now = datetime.now()
