@@ -1,0 +1,28 @@
+version: '2.1'
+services:
+  blog-database:
+    image: "postgres:9"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=pingu123
+      - POSTGRES_DB=miniblog
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  blog-api:
+    build: .
+    depends_on:
+      blog-database:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=blog-database
+      - DB_USER=postgres
+      - DB_PASSWORD=pingu123
+      - DB_PORT=5432
+    links:
+      - "blog-database:blog-database"
